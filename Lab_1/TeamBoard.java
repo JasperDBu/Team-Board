@@ -28,6 +28,33 @@ public class TeamBoard {
         return;
     }
 
+    public static void print_posts_reverse(){
+        for(int i = post_items - 1; i > -1; i--){
+            System.out.println(posts[i]);
+        }
+        return;
+    }
+
+    public static void total_posts(){
+        System.out.println("Total number of posts: " + post_items);
+        return;
+    }
+
+    public static void print_captain_posts(){
+        System.out.println("Please enter a name to search: ");
+        String name = inScanner.nextLine();
+        
+        for(int i = 0; i < post_items; i++){
+            if (posts[i].toLowerCase().contains(name.toLowerCase())){
+                System.out.println(posts[i]);
+            }
+        }
+
+        return;
+    }
+
+
+
 
 
     public static void main(String[] args){
@@ -51,6 +78,15 @@ public class TeamBoard {
                     break;
                 case "2":
                     print_posts();
+                    break;
+                case "3":
+                    print_posts_reverse();
+                    break;
+                case "4":
+                    total_posts();
+                    break;
+                case "5":
+                    print_captain_posts();
                     break;
                 case "9":
                     active = false;
