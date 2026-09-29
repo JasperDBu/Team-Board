@@ -7,6 +7,9 @@ public class TeamBoard {
     public static Scanner inScanner = new Scanner(System.in);
     public static int post_items = 0;
     
+    // new_post(): creates a new string in the array "posts"
+    // Input: name(string), post(string)
+    // will output an error when you have the MAX_ARRAY_SIZE 
     public static void new_post(){
         if(post_items == MAX_ARRAY_SIZE){
             System.err.println("Notice Board is full. Cannot add new notice.");
@@ -21,38 +24,65 @@ public class TeamBoard {
         return;
     }
 
+    // print_posts(): Will print all of the posts in the array "posts".
+    // Prints out an error if there is no items in the array
     public static void print_posts(){
+        if (post_items <= 0){
+            System.err.println("Error: no items in the array");
+            return;
+        }
+
         for(int i = 0; i<post_items; i++){
             System.out.println(posts[i]);
         }
         return;
     }
 
+    // posts_reverse(): will print the all of the posts in the array "posts" in reverse.
+    // Prints out an error if there is no items in the array.
     public static void print_posts_reverse(){
+         if (post_items <= 0){
+            System.err.println("Error: no items in the array");
+            return;
+        }
+
         for(int i = post_items - 1; i > -1; i--){
             System.out.println(posts[i]);
         }
         return;
     }
 
+    // total_posts(): will print out the total number of posts
     public static void total_posts(){
         System.out.println("Total number of posts: " + post_items);
         return;
     }
 
+    // print_captain_posts(): will search the array "posts" for the target name and prints out the posts starting with the target name
+    // Input: name(string)
+    // Will output an error if name is not found
     public static void print_captain_posts(){
         System.out.println("Please enter a name to search: ");
         String name = inScanner.nextLine();
+        boolean found = false;
         
         for(int i = 0; i < post_items; i++){
             if (posts[i].toLowerCase().startsWith(name.toLowerCase())){
                 System.out.println(posts[i]);
+                found = true;
             }
+        }
+
+        if (found == false){
+            System.err.println("Could not find target name.");
         }
 
         return;
     }
 
+    // count_numerical_appearance(): Will count the amount of times a digit is in all the posts
+    // Finds where "posts:" is located in the post and starts from there. This is to ensure it only checks the notice data.
+    // Output: total_count(int)
     public static int count_numerical_appearance(){
         int total_count = 0;
         String startingWord = "posts:";
@@ -60,7 +90,8 @@ public class TeamBoard {
         for(int i = 0; i < post_items; i++){
             int start = posts[i].indexOf(startingWord);
             for( int j = start; j < posts[i].length(); j++){
-                if (Character.isDigit(posts[i].charAt(j))){
+                int post_char = posts[i].charAt(j);
+                if (post_char >= '0' && post_char <= '9'){
                     total_count++;
                 }
             }
@@ -70,27 +101,43 @@ public class TeamBoard {
         return total_count;
     }
 
-    public static void print_word_target_caseSensitive_posts(){
-        System.out.println("Please enter a name to search: ");
+    // print_word_target_caseSensitive(): Will print out any posts that contain the target word using case sensitive search.
+    // Will output an error if target word is not found.
+    public static void print_word_target_caseSensitive(){
+        System.out.println("Please enter a word to search: ");
         String target = inScanner.nextLine();
+        boolean found = false;
         
         for(int i = 0; i < post_items; i++){
             if (posts[i].contains(target)){
                 System.out.println(posts[i]);
+                found = true;
             }
+        }
+        
+        if (found == false){
+            System.err.println("Could not find target word.");
         }
 
         return;
     }
     
-    public static void print_word_target_caseInsensitive_posts(){
-        System.out.println("Please enter a name to search: ");
+    // print_word_target_caseInsensitive(): Will print out any posts that contain the target word using case insensitive search.
+    // Will output an error if target word is not found.
+    public static void print_word_target_caseInsensitive(){
+        System.out.println("Please enter a word to search: ");
         String target = inScanner.nextLine();
-        
+        boolean found = false;
+
         for(int i = 0; i < post_items; i++){
             if (posts[i].toLowerCase().contains(target.toLowerCase())){
                 System.out.println(posts[i]);
+                found = true;
             }
+        }
+
+        if (found == false){
+            System.err.println("Could not find target word2.");
         }
 
         return;
@@ -98,6 +145,7 @@ public class TeamBoard {
    
 
 
+    //Main Function: Prints out a menu that repeatedly shows up until exited. Navigation system for the program.
     public static void main(String[] args){
         boolean active = true;
         while(active == true){
@@ -136,10 +184,10 @@ public class TeamBoard {
                     System.out.println("Total number of digits: " + count_numerical_appearance());
                     break;
                 case "7":
-                    print_word_target_caseSensitive_posts();
+                    print_word_target_caseSensitive();
                     break;
                 case "8":
-                    print_word_target_caseInsensitive_posts();
+                    print_word_target_caseInsensitive();
                     break;
                 case "9":
                     active = false;
