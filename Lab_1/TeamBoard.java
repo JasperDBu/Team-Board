@@ -45,7 +45,7 @@ public class TeamBoard {
         String name = inScanner.nextLine();
         
         for(int i = 0; i < post_items; i++){
-            if (posts[i].toLowerCase().contains(name.toLowerCase())){
+            if (posts[i].toLowerCase().startsWith(name.toLowerCase())){
                 System.out.println(posts[i]);
             }
         }
