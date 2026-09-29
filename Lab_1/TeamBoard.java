@@ -9,13 +9,21 @@ public class TeamBoard {
     
     public static void new_post(){
         if(post_items == MAX_ARRAY_SIZE){
-            System.out.println("Notice Board is full. Cannot add new notice.");
+            System.err.println("Notice Board is full. Cannot add new notice.");
         } else {
             System.out.println("please enter your name");
             String name = inScanner.nextLine();
             System.out.println("please enter your notice");
             String notice = inScanner.nextLine();
             posts[post_items] = ( name + " post: " + notice);
+            post_items++;
+        }
+        return;
+    }
+
+    public static void print_posts(){
+        for(int i = 0; i<post_items; i++){
+            System.out.println(posts[i]);
         }
         return;
     }
@@ -41,11 +49,15 @@ public class TeamBoard {
                 case "1":
                     new_post();
                     break;
+                case "2":
+                    print_posts();
+                    break;
                 case "9":
                     active = false;
                     break;
 
                 default:
+                    System.err.println("Not a valid input, please try again.");
                     break;
             }
         }
